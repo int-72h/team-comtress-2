@@ -360,8 +360,9 @@ FORCEINLINE IDirect3DDevice9 *Dx9Device()
 {
 	return g_pD3DDevice;
 }
+// fixme(melvyn2) use proper return type
 #ifdef DX_TO_GL_ABSTRACTION
-FORCEINLINE IDirect3DDevice9Ex* Dx9ExDevice()
+FORCEINLINE IDirect3DDevice9 *Dx9ExDevice()
 {
 	return NULL;
 }
