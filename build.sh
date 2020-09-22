@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 set -e	# Stop on error
 cd "$(dirname "$0")"
 
@@ -50,42 +50,36 @@ if [ ! -f ./devtools/bin/vpc_linux ]; then
 	cd ../../../..
 fi
 
-case "$1" in
-	-dd)
-		echo "-------------------------------------------------"
-		echo "                    WARNING"
-		echo "    You are probably about to waste your time"
-		echo "        Debug builds currently don't work"
-		echo "    You'll probably get an error about vphysics"
-		echo "-------------------------------------------------"
-		sleep 2
+if [ "$1" = '-dd' ]; then
+	echo -------------------------------------------------
+	echo                     WARNING
+	echo     You are probably about to waste your time
+	echo        Debug builds currently don\'t work
+	echo    You\'ll probably get an error about vphysics
+	echo -------------------------------------------------
+	sleep 2
 
-		./creategameprojects_debug.sh
-		;;
-	-d)
-		./creategameprojects_dev.sh
-		;;
-	*)
-		./creategameprojects.sh
-		;;
-esac
+	./creategameprojects_debug.sh
+elif [ "$1" = '-d' ]; then
+	./creategameprojects_dev.sh
+else
+	./creategameprojects.sh
+fi
 
-if echo "$*" | grep -q -- "-c"; then
+if [ "$*" = '-c' ]; then
 	MAKEARGS="clean"
 else
 	MAKEARGS="all"
 fi
 
 export VALVE_NO_AUTO_P4=1
+if [ "$*" = '-vv' ]; then
+	make NO_CHROOT=1 STEAM_RUNTIME_PATH='' MAKE_JOBS=1 MAKE_VERBOSE=1 -f games.mak "$MAKEARGS"
+elif [ "$*" = '-v' ]; then
+	make NO_CHROOT=1 STEAM_RUNTIME_PATH='' MAKE_JOBS=1 -f games.mak "$MAKEARGS"
+else
+	CFLAGS="-w" CXXFLAGS="-w" make NO_CHROOT=1 STEAM_RUNTIME_PATH='' MAKE_JOBS="$CORES" -f games.mak "$MAKEARGS"
+fi
 
-case "$*" in
-	-vv)
-		make NO_CHROOT=1 STEAM_RUNTIME_PATH='' MAKE_JOBS=1 MAKE_VERBOSE=1 -f games.mak "$MAKEARGS"
-		;;
-	-v)
-		make NO_CHROOT=1 STEAM_RUNTIME_PATH='' MAKE_JOBS=1 -f games.mak "$MAKEARGS"
-		;;
-	*)
-		CFLAGS="-w" CXXFLAGS="-w" make NO_CHROOT=1 STEAM_RUNTIME_PATH='' MAKE_JOBS="$CORES" -f games.mak "$MAKEARGS"
-		;;
-esac
+cp game_clean/copy/bin/*.so ../game/bin/
+cp -r game_clean/copy/tf/custom/* ../game/tf/custom/
