@@ -17,6 +17,9 @@
 
 #include "mathlib/ssemath.h"
 
+// fixme(melvyn2) fix include paths so that <DirectXMath.h> can be used instead
+#include "../thirdparty/DirectXMath-apr2020/Inc/DirectXMath.h"
+
 //-----------------------------------------------------------------------------
 // forward declarations
 //-----------------------------------------------------------------------------
