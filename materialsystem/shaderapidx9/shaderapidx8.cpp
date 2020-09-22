@@ -7260,6 +7260,8 @@ void CShaderAPIDx8::CreateTextures(
 		managed = false;
 		creationFlags &= ~TEXTURE_CREATE_MANAGED;
 	}
+#else
+    const bool g_ShaderDeviceUsingD3D9Ex = false;
 #endif
 
 	// Can't be both managed + dynamic. Dynamic is an optimization, but 
