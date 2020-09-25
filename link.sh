@@ -1,3 +1,6 @@
+#!/usr/bin/env sh
+cd "$(dirname "$0")" || exit
+
 # Edit this if installed elsewhere
 steam="$HOME/.steam/steam"
 
