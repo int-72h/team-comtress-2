@@ -19,7 +19,11 @@ link_dir() {
 }
 
 link_glob() {
-	ln -s "$live_install/$1/"*".$2" "../game/$1/"
+	ln -s "$live_install/$1/"*"$2" "../game/$1/"
+}
+
+copy () {
+	cp -rfT --remove-destination "$live_install/$1" "../game/$1"
 }
 
 link_dir hl2
@@ -32,11 +36,14 @@ link_dir tf/media
 link_dir tf/resource
 link_dir tf/scripts
 
-link_glob bin 'so'
-link_glob tf 'vpk'
+link_glob bin ''
+link_glob tf '.vpk'
 
-cp -r "$live_install/tf/cfg" "../game/tf/cfg"
-cp "$live_install/tf/gameinfo.txt" "../game/tf/"
+copy tf/cfg
+copy tf/gameinfo.txt
+copy tf/gamestate.txt
+copy tf/glshaders.cfg
+copy tf/videoconfig_linux.cfg
 
 cp -f --remove-destination game_clean/copy/bin/*.so ../game/bin/
 cp -r game_clean/copy/tf/custom/ ../game/tf/custom
