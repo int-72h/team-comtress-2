@@ -1,16 +1,18 @@
-#!/bin/sh
-cd "$(dirname "$0")" || exit
-
 # Edit this if installed elsewhere
 steam="$HOME/.steam/steam"
 
-live_install="$steam/steamapps/common/Team Fortress 2"
+
+if [ ! -f $steam/steamapps/Team\ Fortress\ 2/ ]; then
+    live_install=$1
+else
+    live_install=$steam/steamapps/Team\ Fortress\ 2/
+fi
 
 if [ ! -d "$live_install" ]; then
-	echo Failed to find TF2 at \'$live_install\'
-	echo Did you move your steam library?
-	echo If so, change the \`steam\` variable in \`link.sh\`
-	exit 1
+    echo Failed to find TF2 at \'$steam/steamapps/Team\ Fortress\ 2/\'
+    echo Did you move your steam library?
+    echo If so, put the path to your TF2 folder after \'link.sh\'
+    exit 1
 fi
 
 ln -s "$live_install/hl2" 		"../game/hl2"
