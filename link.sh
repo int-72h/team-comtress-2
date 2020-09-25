@@ -38,5 +38,5 @@ link_glob tf 'vpk'
 cp -r "$live_install/tf/cfg" "../game/tf/cfg"
 cp "$live_install/tf/gameinfo.txt" "../game/tf/"
 
-cp game_clean/copy/bin/*.so ../game/bin/
+cp -f --remove-destination game_clean/copy/bin/*.so ../game/bin/
 cp -r game_clean/copy/tf/custom/ ../game/tf/custom
