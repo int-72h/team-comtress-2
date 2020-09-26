@@ -15,11 +15,11 @@ if [ ! -d "$live_install" ]; then
 fi
 
 link_dir() {
-	ln -s "$live_install/$1" "../game/$1"
+	ln -sn "$live_install/$1" "../game/$1"
 }
 
 link_glob() {
-	ln -s "$live_install/$1/"*"$2" "../game/$1/"
+	ln -sn "$live_install/$1/"*"$2" "../game/$1/"
 }
 
 copy () {
@@ -38,10 +38,12 @@ link_dir tf/scripts
 
 link_glob bin ''
 link_glob tf '.vpk'
+link_glob tf '.cache'   # IDK why we need this, but we crash on CAudioSourceMemWave (...): GetDataPointer() without it
 
 copy tf/cfg
 copy tf/gameinfo.txt
 copy tf/gamestate.txt
+copy tf/steam.inf
 copy tf/glshaders.cfg
 copy tf/videoconfig_linux.cfg
 
