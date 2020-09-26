@@ -52,12 +52,12 @@ fi
 
 case "$1" in
 	-dd)
-		echo -------------------------------------------------
-		echo                     WARNING
-		echo     You are probably about to waste your time
-		echo        Debug builds currently don\'t work
-		echo    You\'ll probably get an error about vphysics
-		echo -------------------------------------------------
+		echo "-------------------------------------------------"
+		echo "                    WARNING"
+		echo "    You are probably about to waste your time"
+		echo "        Debug builds currently don't work"
+		echo "    You'll probably get an error about vphysics"
+		echo "-------------------------------------------------"
 		sleep 2
 
 		./creategameprojects_debug.sh
