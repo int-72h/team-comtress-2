@@ -15,11 +15,11 @@ if [ ! -d "$live_install" ]; then
 fi
 
 link_dir() {
-	ln -s "$live_install/$1" "../game/$1"
+	ln -sn "$live_install/$1" "../game/$1"
 }
 
 link_glob() {
-	ln -s "$live_install/$1/"*"$2" "../game/$1/"
+	ln -sn "$live_install/$1/"*"$2" "../game/$1/"
 }
 
 copy () {
@@ -42,6 +42,7 @@ link_glob tf '.vpk'
 copy tf/cfg
 copy tf/gameinfo.txt
 copy tf/gamestate.txt
+copy tf/steam.inf
 copy tf/glshaders.cfg
 copy tf/videoconfig_linux.cfg
 
